@@ -33,9 +33,11 @@ spec:
   selector:
     app: namenode
   ports:
-    - protocol: TCP
+    - name: namenode-port-9870
+      protocol: TCP
       port: 9870
       targetPort: 9870
-    - protocol: TCP
+    - name: namenode-port-9000
+      protocol: TCP
       port: 9000
       targetPort: 9000

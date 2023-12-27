@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: namenode
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: namenode
+  template:
+    metadata:
+      labels:
+        app: namenode
+    spec:
+      containers:
+        - name: namenode
+          image: hakidon/py-hadoop-namenodev2
+          ports:
+            - containerPort: 9870
+            - containerPort: 9000
+          env:
+            - name: CLUSTER_NAME
+              value: test
+          volumeMounts:
+            - name: hadoop-namenode
+              mountPath: /hadoop/dfs/name
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: namenode-service
+spec:
+  selector:
+    app: namenode
+  ports:
+    - protocol: TCP
+      port: 9870
+      targetPort: 9870
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000

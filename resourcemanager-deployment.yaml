@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resourcemanager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resourcemanager
+  template:
+    metadata:
+      labels:
+        app: resourcemanager
+    spec:
+      containers:
+        - name: resourcemanager
+          image: hakidon/py-hadoop-resourcenode
+          env:
+            - name: SERVICE_PRECONDITION
+              value: "namenode-service:9000 namenode-service:9870 datanode-service:9864"

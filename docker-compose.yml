@@ -2,7 +2,7 @@ version: "3"
 
 services:
   namenode:
-    image: hakidon/py-hadoop-namenode 
+    image: hakidon/py-hadoop-namenodev2 
     container_name: namenode
     restart: always
     ports:

@@ -106,5 +106,5 @@ volumes:
 
 networks:
   hbase:
-    external:
-      name: hbase
+    external: true
+    name: hbase

@@ -2,6 +2,8 @@
 
 # Apply the Kubernetes manifests
 sudo microk8s kubectl apply -f namenode-service.yaml
+sudo microk8s kubectl apply -f resourcemanager-service.yaml
+sudo microk8s kubectl apply -f historyserver-service.yaml
 sudo microk8s kubectl apply -f datanode-deployment.yaml
 sudo microk8s kubectl apply -f hadoop-env-configmap.yaml
 sudo microk8s kubectl apply -f hadoop-datanode-persistentvolumeclaim.yaml

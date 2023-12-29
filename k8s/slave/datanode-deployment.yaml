@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.21.0 (992df58d8)
   creationTimestamp: null
   labels:
-    io.kompose.service: datanode
-  name: datanode
+    io.kompose.service: datanode1
+  name: datanode1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: datanode
+      io.kompose.service: datanode1
   strategy:
     type: Recreate
   template:
@@ -22,9 +22,9 @@ spec:
         kompose.version: 1.21.0 (992df58d8)
       creationTimestamp: null
       labels:
-        io.kompose.service: datanode
+        io.kompose.service: datanode1
     spec:
-      hostname: datanode
+      hostname: datanode1
       containers:
       - env:
         - name: CORE_CONF_fs_defaultFS
@@ -231,15 +231,15 @@ spec:
               name: hadoop-env
         image: hakidon/py-hadoop-datanode
         imagePullPolicy: ""
-        name: datanode
+        name: datanode1
         resources: {}
         volumeMounts:
         - mountPath: /hadoop/dfs/data
-          name: hadoop-datanode
+          name: hadoop-datanode1
       restartPolicy: Always
       serviceAccountName: ""
       volumes:
-      - name: hadoop-datanode
+      - name: hadoop-datanode1
         persistentVolumeClaim:
-          claimName: hadoop-datanode
+          claimName: hadoop-datanode1
 status: {}

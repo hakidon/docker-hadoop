@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Get master IP address from user input
+read -p "Enter the master IP address: " master_ip
+
 # Get pod information and extract relevant details
 pod_info=$(microk8s kubectl get pods -o wide --no-headers)
 
@@ -31,6 +34,7 @@ while IFS= read -r line; do
     echo "$ip_address $hostname" >> hosts
 done <<< "$pod_info"
 
+echo "$master_ip datanode" >> hosts
 # Get pod names
 pod_names=$(microk8s kubectl get pods -o custom-columns=:metadata.name --no-headers)
 

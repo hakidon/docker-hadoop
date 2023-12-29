@@ -8,6 +8,7 @@ data:
   HDFS_CONF_dfs_namenode_datanode_registration_ip___hostname___check: "false"
   HDFS_CONF_dfs_permissions_enabled: "false"
   HDFS_CONF_dfs_webhdfs_enabled: "true"
+  HDFS_CONF_dfs_replication: "3"  # Set the desired replication factor
   MAPRED_CONF_mapred_child_java_opts: -Xmx4096m
   MAPRED_CONF_mapreduce_framework_name: yarn
   MAPRED_CONF_mapreduce_map_env: HADOOP_MAPRED_HOME=/opt/hadoop-3.2.1/

@@ -33,12 +33,11 @@ while IFS= read -r line; do
     # Append the entry to the hosts file
     echo "$ip_address $hostname" >> hosts
     # Append entries for namenode, resourcemanager, and historyserver
-    echo "$master_ip namenode" >> hosts
-    echo "$master_ip resourcemanager" >> hosts
-    echo "$master_ip historyserver" >> hosts
-
 done <<< "$pod_info"
 
+echo "$master_ip namenode" >> hosts
+echo "$master_ip resourcemanager" >> hosts
+echo "$master_ip historyserver" >> hosts
 # Get pod names
 pod_names=$(microk8s kubectl get pods -o custom-columns=:metadata.name --no-headers)
 

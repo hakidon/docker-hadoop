@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -p "Enter the datanode1 IP address: " datanode1
+read -p "Enter the slave1 IP address: " slave1
 
 # Get pod information and extract relevant details
 pod_info=$(microk8s kubectl get pods -o wide --no-headers)
@@ -32,7 +32,8 @@ while IFS= read -r line; do
     # Append the entry to the hosts file
     echo "$ip_address $hostname" >> hosts
 done <<< "$pod_info"
-echo "$datanode1 datanode1" >> hosts
+echo "$slave1 datanode1" >> hosts
+echo "$slave1 nodemanager1" >> hosts
 
 # Get pod names
 pod_names=$(microk8s kubectl get pods -o custom-columns=:metadata.name --no-headers)

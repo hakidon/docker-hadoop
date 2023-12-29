@@ -23,7 +23,7 @@ spec:
       labels:
         io.kompose.service: nodemanager1
     spec:
-      hostname: nodemanager
+      hostname: nodemanager1
       containers:
       - env:
         - name: CORE_CONF_fs_defaultFS

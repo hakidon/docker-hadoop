@@ -1,7 +1,5 @@
 #!/bin/bash
 
-read -p "Enter the datanode1 IP address: " datanode1
-
 # Get pod information and extract relevant details
 pod_info=$(microk8s kubectl get pods -o wide --no-headers)
 
@@ -32,25 +30,8 @@ while IFS= read -r line; do
     # Append the entry to the hosts file
     echo "$ip_address $hostname" >> hosts
 done <<< "$pod_info"
-echo "$datanode1 datanode1" >> hosts
 
-# Get pod names
-pod_names=$(microk8s kubectl get pods -o custom-columns=:metadata.name --no-headers)
+echo "Hosts file created successfully!"
 
-# Loop through each pod and append the contents of the hosts file to /etc/hosts
-while IFS= read -r pod_name; do
-    # Copy the hosts file to a temporary directory inside the container
-    microk8s kubectl cp hosts "$pod_name":/tmp/hosts
-
-    # Append the contents of the hosts file to /etc/hosts inside the container
-    microk8s kubectl exec "$pod_name" -- sh -c "cat /tmp/hosts >> /etc/hosts"
-
-    # Remove the temporary hosts file
-    microk8s kubectl exec "$pod_name" -- sh -c "rm /tmp/hosts"
-
-    # Print a message for each successful append
-    echo "Hosts file appended to /etc/hosts in $pod_name!"
-done <<< "$pod_names"
-
-echo "Hosts file appended to /etc/hosts in each container!"
+cat hosts
 

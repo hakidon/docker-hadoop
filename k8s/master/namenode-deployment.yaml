@@ -229,7 +229,7 @@ spec:
             configMapKeyRef:
               key: YARN_CONF_yarn_timeline___service_hostname
               name: hadoop-env
-        image: hakidon/py-hadoop-namenodev4
+        image: hakidon/py-hadoop-namenodev5
         imagePullPolicy: ""
         name: namenode
         ports:

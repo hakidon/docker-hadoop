@@ -57,3 +57,31 @@ while IFS= read -r pod_name; do
 done <<< "$pod_names"
 
 echo "Hosts file appended to /etc/hosts in each container!"
+
+
+pod_info=$(microk8s kubectl get pods -o wide --no-headers)
+
+# Loop through each line of the pod information
+while IFS= read -r line; do
+    # Extract pod name and IP address
+    pod_name=$(echo "$line" | awk '{print $1}')
+    # Extract the hostname (remove everything after the first hyphen)
+    hostname=$(echo "$pod_name" | awk -F- '{print $1}')
+
+    # Handle special case for datanode1
+    if [ "$hostname" == "datanode1" ]; then
+        unknown_ports=$(microk8s kubectl exec "$pod_name" -- sh -c "netstat -tulnp" | grep "LISTEN" | awk '{print $4}' | awk -F ':' '{print $2}')
+
+        # Replace all occurrences of unknown ports in the service configuration
+        for port in $unknown_ports; do
+            sed -i "s/port: $port/port: $port/" datanode1-service.yaml
+        done
+
+        # Apply the updated service configuration
+        # microk8s kubectl apply -f datanode1-service.yaml
+
+        # Print a message for each successful update
+        echo "Service configuration updated for $pod_name!"
+    fi
+done <<< "$pod_info"
+

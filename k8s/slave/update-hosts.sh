@@ -72,13 +72,31 @@ while IFS= read -r line; do
     if [ "$hostname" == "datanode1" ]; then
         unknown_ports=$(microk8s kubectl exec "$pod_name" -- sh -c "netstat -tulnp" | grep "LISTEN" | awk '{print $4}' | awk -F ':' '{print $2}')
 
-        # Replace all occurrences of unknown ports in the service configuration
+        # Generate the new content for datanode1-service.yaml
+        new_yaml_content="apiVersion: v1
+        kind: Service
+        metadata:
+        name: datanode1
+        spec:
+        ports:"
+
+        # Add each port to the new_yaml_content
         for port in $unknown_ports; do
-            sed -i "s/port: $port/port: $port/" datanode1-service.yaml
+            new_yaml_content+="\n    - name: \"datanode-port-$port\"
+        port: $port
+        targetPort: $port"
         done
 
+        new_yaml_content+="\n  selector:
+        io.kompose.service: datanode1
+        status:
+        loadBalancer: {}"
+
+        # Write the new content to datanode1-service.yaml
+        echo -e "$new_yaml_content" > datanode1-service.yaml
+
         # Apply the updated service configuration
-        # microk8s kubectl apply -f datanode1-service.yaml
+        microk8s kubectl apply -f datanode1-service.yaml
 
         # Print a message for each successful update
         echo "Service configuration updated for $pod_name!"

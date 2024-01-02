@@ -85,9 +85,9 @@ while IFS= read -r pod_name; do
 
     # Add each port to the new_yaml_content
     for port in $unknown_ports; do
-        new_yaml_content+="\n    - name: \"datanode-port-$port\"
-      port: $port
-      targetPort: $port"
+        new_yaml_content+="\n  - name: \"datanode-port-$port\"
+    port: $port
+    targetPort: $port"
     done
 
     # Use kubectl patch to update the service configuration

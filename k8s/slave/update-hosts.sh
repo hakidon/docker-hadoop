@@ -58,11 +58,3 @@ done <<< "$pod_names"
 
 echo "Hosts file appended to /etc/hosts in each container!"
 
-
-log_info() {
-    echo "INFO: $1"
-}
-
-log_error() {
-    echo "ERROR: $1"
-}

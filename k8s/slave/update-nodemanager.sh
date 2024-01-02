@@ -1,5 +1,12 @@
 #!/bin/bash
 
+log_info() {
+    echo "INFO: $1"
+}
+
+log_error() {
+    echo "ERROR: $1"
+}
 datanode1_pod=$(microk8s kubectl get pods --selector=io.kompose.service=datanode1 -o custom-columns=:metadata.name --no-headers)
 
 while IFS= read -r pod_name; do

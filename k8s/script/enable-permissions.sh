@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Set executable permissions for file xxx
+chmod +x ./init-mk8s.sh
+chmod +x ./enable-mk8s.sh
+chmod +x ./slave/apply-manifests.sh
+chmod +x ./slave/update-hosts.sh
+chmod +x ./slave/delete-all.sh
+chmod +x ./master/apply-manifests.sh
+chmod +x ./master/update-hosts.sh
+chmod +x ./master/delete-all.sh
+
+echo "Executable permissions for all execubtables."

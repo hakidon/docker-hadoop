@@ -6,6 +6,13 @@ RUN echo "deb http://archive.debian.org/debian/ stretch main\ndeb http://archive
     apt-get install -y nano && \
 	apt-get install -y curl && \
 	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/input.txt >> /home/input.txt && \
+	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/input.txt >> /home/input.txt && \
+	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/input.txt >> /home/input.txt && \
+	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/input.txt >> /home/input.txt && \
+	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/input.txt >> /home/input.txt && \
+	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/input.txt >> /home/input.txt && \
+	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/input.txt >> /home/input.txt && \
+	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/input.txt >> /home/input.txt && \
 	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/reducer.py >> /home/reducer.py && \
 	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/mapper.py >> /home/mapper.py
 	

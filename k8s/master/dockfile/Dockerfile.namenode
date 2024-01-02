@@ -6,6 +6,7 @@ RUN echo "deb http://archive.debian.org/debian/ stretch main\ndeb http://archive
     apt-get install -y nano && \
 	apt-get install -y curl && \
 	apt-get install -y iputils-ping && \
+	apt-get install -y net-tools && \
 	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/k8s/script/code/input-500.sh >> /home/input-500.txt && \
 	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/k8s/script/code/input-1000.sh >> /home/input-1000.txt && \
 	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/k8s/script/code/input-5000.sh >> /home/input-5000.txt && \

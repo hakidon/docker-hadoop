@@ -7,9 +7,11 @@ spec:
     - name: "port-9870"
       port: 9870
       targetPort: 9870
+      nodePort: 9870
     - name: "port-9000"
       port: 9000
       targetPort: 9000
+      nodePort: 9000
   selector:
     io.kompose.service: namenode
 status:

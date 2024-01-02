@@ -59,15 +59,14 @@ done <<< "$pod_names"
 echo "Hosts file appended to /etc/hosts in each container!"
 
 
-function log_info {
-    echo "[INFO] $1"
+log_info() {
+    echo "INFO: $1"
 }
 
-function log_error {
-    echo "[ERROR] $1"
+log_error() {
+    echo "ERROR: $1"
 }
 
-# Check netstat -tulnp for the container that starts with datanode1
 datanode1_pod=$(microk8s kubectl get pods --selector=io.kompose.service=datanode1 -o custom-columns=:metadata.name --no-headers)
 
 while IFS= read -r pod_name; do
@@ -79,21 +78,40 @@ while IFS= read -r pod_name; do
         continue
     fi
 
-    # Generate the new content for datanode1-service.yaml
-    new_yaml_content="spec:
-  ports:"
+    # Remove the current datanode1-service.yaml
+    rm -f datanode1-service.yaml
 
-    # Add each port to the new_yaml_content
-    for port in $unknown_ports; do
-        new_yaml_content+="\n  - name: \"datanode-port-$port\"
-    port: $port
-    targetPort: $port"
-    done
+    # Generate the new datanode1-service.yaml
+    cat <<EOF > datanode1-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: datanode1
+spec:
+  ports:
+EOF
 
-    # Use kubectl patch to update the service configuration
-    if microk8s kubectl patch service datanode1 -p "$(echo "$new_yaml_content" | sed 's/^/  /')" -o yaml; then
+    while IFS= read -r port; do
+        cat <<EOF >> datanode1-service.yaml
+    - name: "datanode-port-$port"
+      port: $port
+      targetPort: $port
+      nodePort: $port
+EOF
+    done <<< "$unknown_ports"
+
+    cat <<EOF >> datanode1-service.yaml
+  selector:
+    io.kompose.service: datanode1
+status:
+  loadBalancer: {}
+EOF
+
+    # Apply the updated service configuration
+    if microk8s kubectl apply -f datanode1-service.yaml; then
         log_info "Service configuration updated for $pod_name."
     else
         log_error "Failed to apply updated service configuration for $pod_name."
     fi
+
 done <<< "$datanode1_pod"

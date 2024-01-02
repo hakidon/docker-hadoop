@@ -61,45 +61,39 @@ echo "Hosts file appended to /etc/hosts in each container!"
 
 pod_info=$(microk8s kubectl get pods -o wide --no-headers)
 
-# Loop through each line of the pod information
-while IFS= read -r line; do
-    # Extract pod name and IP address
-    pod_name=$(echo "$line" | awk '{print $1}')
-    # Extract the hostname (remove everything after the first hyphen)
-    hostname=$(echo "$pod_name" | awk -F- '{print $1}')
+# Check netstat -tulnp for the container that starts with datanode1
+datanode1_pod=$(microk8s kubectl get pods --selector=io.kompose.service=datanode1 -o custom-columns=:metadata.name --no-headers)
 
-    # Handle special case for datanode1
-    if [ "$hostname" == "datanode1" ]; then
-        unknown_ports=$(microk8s kubectl exec "$pod_name" -- sh -c "netstat -tulnp" | grep "LISTEN" | awk '{print $4}' | awk -F ':' '{print $2}')
+while IFS= read -r pod_name; do
+    # Check netstat -tulnp inside the datanode1 pod
+    unknown_ports=$(microk8s kubectl exec "$pod_name" -- sh -c "netstat -tulnp" | grep "LISTEN" | awk '{print $4}' | awk -F ':' '{print $2}')
 
-        # Generate the new content for datanode1-service.yaml
-        new_yaml_content="apiVersion: v1
-        kind: Service
-        metadata:
-        name: datanode1
-        spec:
-        ports:"
+    # Generate the new content for datanode1-service.yaml
+    new_yaml_content="apiVersion: v1
+kind: Service
+metadata:
+  name: datanode1
+spec:
+  ports:"
 
-        # Add each port to the new_yaml_content
-        for port in $unknown_ports; do
-            new_yaml_content+="\n    - name: \"datanode-port-$port\"
-        port: $port
-        targetPort: $port"
-        done
+    # Add each port to the new_yaml_content
+    for port in $unknown_ports; do
+        new_yaml_content+="\n    - name: \"datanode-port-$port\"
+      port: $port
+      targetPort: $port"
+    done
 
-        new_yaml_content+="\n  selector:
-        io.kompose.service: datanode1
-        status:
-        loadBalancer: {}"
+    new_yaml_content+="\n  selector:
+    io.kompose.service: datanode1
+  status:
+    loadBalancer: {}"
 
-        # Write the new content to datanode1-service.yaml
-        echo -e "$new_yaml_content" > datanode1-service.yaml
+    # Write the new content to datanode1-service.yaml
+    echo -e "$new_yaml_content" > datanode1-service.yaml
 
-        # Apply the updated service configuration
-        microk8s kubectl apply -f datanode1-service.yaml
+    # Apply the updated service configuration
+    microk8s kubectl apply -f datanode1-service.yaml
 
-        # Print a message for each successful update
-        echo "Service configuration updated for $pod_name!"
-    fi
-done <<< "$pod_info"
-
+    # Print a message for each successful update
+    echo "Service configuration updated for $pod_name!"
+done <<< "$datanode1_pod"

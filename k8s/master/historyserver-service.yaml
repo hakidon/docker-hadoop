@@ -10,5 +10,4 @@ spec:
       nodePort: 8188
   selector:
     io.kompose.service: historyserver
-status:
-  loadBalancer: {}
+  type: LoadBalancer

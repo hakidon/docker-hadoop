@@ -22,5 +22,4 @@ spec:
       nodePort: 38475
   selector:
     io.kompose.service: nodemanager1
-status:
-  loadBalancer: {}
+  type: LoadBalancer

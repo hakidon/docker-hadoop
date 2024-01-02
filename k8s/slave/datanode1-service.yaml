@@ -22,5 +22,4 @@ spec:
       nodePort: 9867
   selector:
     io.kompose.service: datanode1
-status:
-  loadBalancer: {}
+  type: LoadBalancer

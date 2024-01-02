@@ -22,5 +22,4 @@ spec:
       nodePort: 8088
   selector:
     io.kompose.service: resourcemanager
-status:
-  loadBalancer: {}
+  type: LoadBalancer

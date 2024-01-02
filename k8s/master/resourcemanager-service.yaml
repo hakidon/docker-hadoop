@@ -7,19 +7,16 @@ spec:
     - name: "port-8030"
       port: 8030
       targetPort: 8030
-      nodePort: 8030
     - name: "port-8031"
       port: 8031
       targetPort: 8031
-      nodePort: 8031
     - name: "port-8032"
       port: 8032
       targetPort: 8032
-      nodePort: 8032
     - name: "port-8088"
       port: 8088
       targetPort: 8088
-      nodePort: 8088
   selector:
     io.kompose.service: resourcemanager
-  type: LoadBalancer
+status:
+  loadBalancer: {}

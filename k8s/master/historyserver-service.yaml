@@ -7,7 +7,7 @@ spec:
     - name: "port-8188"
       port: 8188
       targetPort: 8188
-      nodePort: 8188
   selector:
     io.kompose.service: historyserver
-  type: LoadBalancer
+status:
+  loadBalancer: {}

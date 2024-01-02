@@ -7,19 +7,16 @@ spec:
     - name: "port-13562"
       port: 13562
       targetPort: 13562
-      nodePort: 13562
     - name: "port-8042"
       port: 8042
       targetPort: 8042
-      nodePort: 8042
     - name: "port-8040"
       port: 8040
       targetPort: 8040
-      nodePort: 8040
     - name: "port-38475"
       port: 38475
       targetPort: 38475
-      nodePort: 38475
   selector:
     io.kompose.service: nodemanager1
-  type: LoadBalancer
+status:
+  loadBalancer: {}

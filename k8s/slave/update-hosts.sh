@@ -96,7 +96,6 @@ EOF
     - name: "datanode-port-$port"
       port: $port
       targetPort: $port
-      nodePort: $port
 EOF
     done <<< "$unknown_ports"
 

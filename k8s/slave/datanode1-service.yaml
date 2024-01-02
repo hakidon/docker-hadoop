@@ -7,19 +7,16 @@ spec:
     - name: "datanode-port-34559"
       port: 34559
       targetPort: 34559
-      nodePort: 34559
     - name: "datanode-port-9864"
       port: 9864
       targetPort: 9864
-      nodePort: 9864
     - name: "datanode-port-9866"
       port: 9866
       targetPort: 9866
-      nodePort: 9866
     - name: "datanode-port-9867"
       port: 9867
       targetPort: 9867
-      nodePort: 9867
   selector:
     io.kompose.service: datanode1
-  type: LoadBalancer
+status:
+  loadBalancer: {}

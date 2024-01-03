@@ -25,11 +25,6 @@ while IFS= read -r line; do
     # Extract the hostname (remove everything after the first hyphen)
     hostname=$(echo "$pod_name" | awk -F- '{print $1}')
 
-    # Handle special case for nodemanager1
-    if [ "$hostname" == "nodemanager1" ]; then
-        hostname="nodemanager"
-    fi
-
     # Append the entry to the hosts file
     echo "$ip_address $hostname" >> hosts
     # Append entries for namenode, resourcemanager, and historyserver

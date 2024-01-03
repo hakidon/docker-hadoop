@@ -45,6 +45,10 @@ pod_names=$(microk8s kubectl get pods -o custom-columns=:metadata.name --no-head
 
 # Loop through each pod and append the contents of the hosts file to /etc/hosts
 while IFS= read -r pod_name; do
+    if [ "$hostname" == "nodemanager1" ]; then
+        echo "Skipping nodemanager1 pod."
+        continue
+    fi
     # Copy the hosts file to a temporary directory inside the container
     microk8s kubectl cp hosts "$pod_name":/tmp/hosts
 

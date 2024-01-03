@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: historyserver
+spec:
+  ports:
+    - name: "port-8188"
+      port: 8188
+      targetPort: 8188
+  selector:
+    io.kompose.service: historyserver
+status:
+  loadBalancer: {}

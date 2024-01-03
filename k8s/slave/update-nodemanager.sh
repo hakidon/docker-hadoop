@@ -64,8 +64,8 @@ EOF
 update_service "datanode1" "io.kompose.service=datanode1"
 
 # Update Nodemanager1 service
-update_service "nodemanager1" "io.kompose.service=nodemanager1"
+# update_service "nodemanager1" "io.kompose.service=nodemanager1"
 
 # Port forwarding
 microk8s kubectl port-forward service/datanode1 $(microk8s kubectl get service datanode1 -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
-microk8s kubectl port-forward service/nodemanager1 $(microk8s kubectl get service nodemanager1 -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
+# microk8s kubectl port-forward service/nodemanager1 $(microk8s kubectl get service nodemanager1 -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &

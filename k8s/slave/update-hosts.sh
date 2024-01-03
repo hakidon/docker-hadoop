@@ -45,6 +45,7 @@ pod_names=$(microk8s kubectl get pods -o custom-columns=:metadata.name --no-head
 
 # Loop through each pod and append the contents of the hosts file to /etc/hosts
 while IFS= read -r pod_name; do
+    hostname=$(echo "$pod_name" | awk -F- '{print $1}')
     if [ "$hostname" == "nodemanager1" ]; then
         echo "Skipping nodemanager1 pod."
         continue

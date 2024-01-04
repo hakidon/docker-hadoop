@@ -32,8 +32,8 @@ while IFS= read -r line; do
     # Append the entry to the hosts file
     echo "$ip_address $hostname" >> hosts
 done <<< "$pod_info"
-echo "$slave1 datanode1" >> hosts
-echo "$slave1 nodemanager1" >> hosts
+# echo "$slave1 datanode1" >> hosts
+# echo "$slave1 nodemanager1" >> hosts
 
 # Get pod names
 pod_names=$(microk8s kubectl get pods -o custom-columns=:metadata.name --no-headers)
@@ -55,7 +55,7 @@ done <<< "$pod_names"
 
 echo "Hosts file appended to /etc/hosts in each container!"
 
-microk8s kubectl port-forward service/namenode $(microk8s kubectl get service namenode -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
-microk8s kubectl port-forward service/resourcemanager $(microk8s kubectl get service resourcemanager -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
-microk8s kubectl port-forward service/historyserver $(microk8s kubectl get service historyserver -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
+# microk8s kubectl port-forward service/namenode $(microk8s kubectl get service namenode -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
+# microk8s kubectl port-forward service/resourcemanager $(microk8s kubectl get service resourcemanager -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
+# microk8s kubectl port-forward service/historyserver $(microk8s kubectl get service historyserver -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
 

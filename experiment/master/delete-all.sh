@@ -11,3 +11,4 @@ microk8s kubectl delete pods --all
 microk8s kubectl delete services --all
 
 echo "All deployments, pods, and services have been deleted."
+pkill -f "kubectl port-forward"

@@ -33,6 +33,10 @@ done <<< "$pod_info"
 echo "$master_ip namenode" >> hosts
 echo "$master_ip resourcemanager" >> hosts
 echo "$master_ip historyserver" >> hosts
+echo "$master_ip nodemanager" >> hosts
+echo "$master_ip datanode" >> hosts
+
+
 # Get pod names
 pod_names=$(microk8s kubectl get pods -o custom-columns=:metadata.name --no-headers)
 

@@ -55,7 +55,7 @@ done <<< "$pod_names"
 
 echo "Hosts file appended to /etc/hosts in each container!"
 
-# microk8s kubectl port-forward service/namenode $(microk8s kubectl get service namenode -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
-# microk8s kubectl port-forward service/resourcemanager $(microk8s kubectl get service resourcemanager -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
-# microk8s kubectl port-forward service/historyserver $(microk8s kubectl get service historyserver -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
+microk8s kubectl port-forward service/namenode $(microk8s kubectl get service namenode -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
+microk8s kubectl port-forward service/resourcemanager $(microk8s kubectl get service resourcemanager -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
+microk8s kubectl port-forward service/historyserver $(microk8s kubectl get service historyserver -o=jsonpath='{.spec.ports[*].port}') --address 0.0.0.0 &
 

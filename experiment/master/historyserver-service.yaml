@@ -7,6 +7,9 @@ spec:
     - name: "port-8188"
       port: 8188
       targetPort: 8188
+    - name: "port-10200"
+      port: 10200
+      targetPort: 10200
   selector:
     io.kompose.service: historyserver
 status:

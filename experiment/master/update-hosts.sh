@@ -33,7 +33,7 @@ while IFS= read -r line; do
     echo "$ip_address $hostname" >> hosts
 done <<< "$pod_info"
 echo "$slave1 datanode1" >> hosts
-echo "$slave1 nodemanager1" >> hosts
+# echo "$slave1 nodemanager1" >> hosts
 
 # Get pod names
 pod_names=$(microk8s kubectl get pods -o custom-columns=:metadata.name --no-headers)

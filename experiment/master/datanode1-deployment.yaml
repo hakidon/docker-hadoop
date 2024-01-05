@@ -25,6 +25,7 @@ spec:
         io.kompose.service: datanode1
     spec:
       hostname: datanode1
+      hostNetwork: true
       containers:
       - env:
         - name: CORE_CONF_fs_defaultFS

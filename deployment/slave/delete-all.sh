@@ -1,4 +1,5 @@
 #!/bin/bash
+export KUBECONFIG=/path/to/your/kubeconfig.yaml
 
 # Delete all deployments
 microk8s kubectl delete deployments --all

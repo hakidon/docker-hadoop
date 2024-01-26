@@ -1,0 +1,11 @@
+FROM bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+
+RUN echo "deb http://archive.debian.org/debian/ stretch main\ndeb http://archive.debian.org/debian-security stretch/updates main" | tee /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -y python3 && \
+    apt-get install -y nano && \
+	apt-get install -y curl && \
+	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/input.txt >> /home/input.txt && \
+	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/reducer.py >> /home/reducer.py && \
+	curl https://raw.githubusercontent.com/hakidon/docker-hadoop/main/code/mapper.py >> /home/mapper.py
+	
